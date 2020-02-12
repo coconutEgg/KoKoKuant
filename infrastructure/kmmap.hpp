@@ -1,19 +1,20 @@
 #ifndef _KMMAP_HPP_
 #define _KMMAP_HPP_
 
+//cpp headers
+#include <string>
+
+//linux/unix c headers
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <fcntl.h>
-
-#include <string>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
 
+//project headers
 #include "kerror.hpp"
-
-#define NOFILENAME ""
+#include "kfcntl.hpp"
 
 class Kmmap
 {
@@ -22,33 +23,11 @@ public:
     Kmmap(const std::string &str)
         : filename(str){};
 
-    void kread(std::string filename = NOFILENAME)
-    {
-        
+    void kread(std::string filename = NOFILENAME);
 
-    }
+    void kwrite(std::string filename = NOFILENAME) const;
 
-    void kwrite(std::string filename = NOFILENAME)
-    {
-        int fd = STDOUT_FILENO;
-
-        if (filename != NOFILENAME)
-        {
-            fd = open(filename.c_str(), O_RDONLY);
-            if(fd == -1)
-            {
-                errmsg(STDOUT_FILENO, errno, "kwrite() calls open() failed");
-                exit(1);
-            }
-        }
-
-
-    }
-
-    inline void reset_filename(const std::string &str)
-    {
-        filename = str;
-    }
+    void reset_filename(const std::string &str);
 
 private:
     std::string filename;
