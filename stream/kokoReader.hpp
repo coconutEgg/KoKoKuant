@@ -1,10 +1,7 @@
 #ifndef _KOKOREADER_
 #define _KOKOREADER_
 
-#include <cstdio>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <fcntl.h>
+
 
 
 #include <string>
@@ -22,7 +19,7 @@ class KokoBaseReader
 {
 public:
     virtual bool read_from(const std::string &){};
-    virtual bool write_to(int flag = STDOUT, std::string filename = "") const{};
+    virtual bool write_to(std::string filename = "") const{};
 
 private:
     KokoMatrix *kmp;
